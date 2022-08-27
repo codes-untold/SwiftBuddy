@@ -7,8 +7,19 @@
 
 import Foundation
 
-class Routes {
+class Routes:ObservableObject {
     
-    let onBoarding:String = "onBoarding"
+    @Published var selectedRootView:RootView = RootView.SplashScreen
     
+   
+    
+}
+
+final class AppState : ObservableObject {
+    @Published var rootViewId = UUID()
+}
+
+
+enum RootView {
+    case SplashScreen,OnboardingLander
 }

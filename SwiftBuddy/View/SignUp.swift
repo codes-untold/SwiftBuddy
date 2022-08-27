@@ -14,6 +14,16 @@ import SwiftUI
 struct SignUp: View {
     
     @State var emailController = ""
+    @State var signInOpen = false
+    @State var userNameHasError = false
+    @State var emailHasError = false
+    @State var phoneHasError = false
+    @State var passwordHasError = false
+     
+    
+    func fieldCheck(_ fieldName:String,fieldState:Bool){
+       
+    }
     
     var body: some View {
       
@@ -33,33 +43,53 @@ struct SignUp: View {
 
                     Spacer().frame(height:50)
                     CustomTextfield(textController: $emailController,
-                                    icon:"person", label: "Username"
+                                    icon:"person", label: "Username",
+                                    hasError: userNameHasError
+
                     )
+                    
                     Spacer().frame(height:30)
                     CustomTextfield(textController: $emailController,
-                                    icon:"mail.stack", label: "Email"
+                                    icon:"mail.stack", label: "Email",
+                                    hasError: emailHasError
                     )
+                  
                     Spacer().frame(height:30)
                     CustomTextfield(textController: $emailController,
-                                    icon:"phone", label: "Phone"
+                                    icon:"phone", label: "Phone",
+                                    hasError: phoneHasError
                     )
-                   
                 }
+                Group{
+                
+                    Spacer().frame(height:30)
+                    CustomTextfield(textController: $emailController,
+                                    icon:"key", label: "Password",
+                                    hasError: passwordHasError
+                    )
                
-                Spacer().frame(height:30)
-                CustomTextfield(textController: $emailController,
-                                icon:"key", label: "Password"
-                )
-                Spacer().frame(height:30)
-                HStack {
-                    Text("By Signing Up, you have access to SwiftBuddy's components and code implementations")
-                        .foregroundColor(Color(hex: "a2a6aa"))
-                        .font(.system(size: 15, weight: .light, design: .default))
-                        .kerning(1)
-                    Spacer()
+                    NavigationLink(
+                        destination: SignIn()
+                            .statusBar(hidden: true)
+                            .navigationBarHidden(true),
+                         
+                        isActive: $signInOpen)
+                    {
+                         EmptyView()
+                    }
+                    Spacer().frame(height:30)
+                    
+                        Text("By Signing Up, you have access to SwiftBuddy's components and code implementations")
+                            .foregroundColor(Color(hex: "a2a6aa"))
+                            .font(.system(size: 15, weight: .light, design: .default))
+                            .kerning(1)
+                     
+                    Spacer().frame(height:50)
                 }
-                Spacer().frame(height:50)
+                
                 Button("Continue") {
+                    
+                    userNameHasError.toggle()
                   // some code
                 }
                 .frame(maxWidth:.infinity,
@@ -76,6 +106,12 @@ struct SignUp: View {
                     Text("Joined us before?")
                         .foregroundColor(Color(hex: "a2a6aa"))
                         .font(.system(size: 15, weight: .light, design: .default))
+                    Text("Login")
+                        .foregroundColor(Color(hex: "0f65ff"))
+                        .font(.system(size: 15, weight: .light, design: .default))
+                        .onTapGesture {
+                            signInOpen = true
+                        }
                 }
                
                 

@@ -1,0 +1,6 @@
+framework module Pods_SwiftBuddyTests {
+  umbrella header "Pods-SwiftBuddyTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

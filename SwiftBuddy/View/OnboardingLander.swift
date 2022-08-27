@@ -10,81 +10,100 @@ import SwiftUI
 struct OnboardingLander: View {
     
    @State var index = 0
+    @State var isSignUpOpen = false
+    @EnvironmentObject var controller: Routes
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var boardingTitles = [
     "Discover Code Snippets for SwiftUi Components",
         "Discover Code Snippets for SwiftUi Components",
         "Discover Code Snippets for SwiftUi Components"]
+   
     
     var body: some View {
-        GeometryReader{ dimension in
-            ZStack{
-                Rectangle().fill(LinearGradient(gradient:  Gradient(colors: [
-                    Color(hex: "ffffff"),
-                    Color(hex: "0f65ff"),
-                    Color(hex: "0f65ff"),
-                 
-                ]),  startPoint: .topLeading,
-                endPoint: .center)).frame(maxWidth: .infinity, maxHeight: .infinity)
-                .edgesIgnoringSafeArea(.all)
-                
-               VStack{
-                Image("swift_buddy_logo").resizable()
-                 //   .scaledToFit()
-                  //  .frame(width: 450.0, height: 450.0)
-               
+        NavigationView {
+            GeometryReader{ dimension in
                 ZStack{
-                    RoundedRectangle(cornerRadius: 40).fill()
-                        .frame(maxWidth:.infinity,maxHeight: dimension.size.height * 0.4).foregroundColor(.white)
+                    Rectangle().fill(LinearGradient(gradient:  Gradient(colors: [
+                        Color(hex: "ffffff"),
+                        Color(hex: "0f65ff"),
+                        Color(hex: "0f65ff"),
+                     
+                    ]),  startPoint: .topLeading,
+                    endPoint: .center)).frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .edgesIgnoringSafeArea(.all)
                     
+                   VStack{
+                    Image("swift_buddy_logo").resizable()
+                     //   .scaledToFit()
+                      //  .frame(width: 450.0, height: 450.0)
                    
-                    VStack{
-                         TabView(selection: self.$index){
-                             ForEach(0..<3,id: \.self){i in
-                                VStack{
-                                    Text(boardingTitles[i])
-                                        .fontWeight(.bold)
-                                        .font(.system(size: 22, weight: .light, design: .default))
-                                        .multilineTextAlignment(.center)
-                                    Spacer()//.frame(height:30)
-                                   
-                                }
-                                
-                             }
-                         }.tabViewStyle(PageTabViewStyle())
-                         .frame(maxWidth: .infinity, maxHeight: dimension.size.height * 0.45, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                       
-                        HStack{
-                            ForEach(0..<3,id: \.self){i in
-                                 BoardingCircles(circleColor:
-                                                     index == i ? Color(hex: "0f65ff"):.gray, circleSize: index == i ? 8.0 : 5.0)
-                            }
-                        }
-                        Spacer().frame(height:90)
-                        Button("Get Started") {
-                          // some code
-                        }
-                        .frame(maxWidth:.infinity,
-                               maxHeight: 50)
-                       
-                        .font(.system(size: 22, weight: .bold))
-                        .foregroundColor(.white)
-                        .shadow(radius: 10 )
-                        .background(Color(hex: "0f65ff"))
-                        .cornerRadius(10)
-                       
-                            
-                    }.padding(40)
-                   // .scaledToFit()
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 40).fill()
+                            .frame(maxWidth:.infinity,maxHeight: dimension.size.height * 0.4).foregroundColor(.white)
                         
-                    
-                }.padding(20)
-                .frame(maxWidth:.infinity,maxHeight: dimension.size.height * 0.45)
+                       
+                        VStack{
+                             TabView(selection: self.$index){
+                                 ForEach(0..<3,id: \.self){i in
+                                    VStack{
+                                        Text(boardingTitles[i])
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 22, weight: .light, design: .default))
+                                            .multilineTextAlignment(.center)
+                                        Spacer()//.frame(height:30)
+                                       
+                                    }
+                                    
+                                 }
+                             }.tabViewStyle(PageTabViewStyle(
+                                                indexDisplayMode: .never))
+                             .frame(maxWidth: .infinity, maxHeight: dimension.size.height * 0.45, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                           
+                            HStack{
+                                ForEach(0..<3,id: \.self){i in
+                                     BoardingCircles(circleColor:
+                                                         index == i ? Color(hex: "0f65ff"):.gray, circleSize: index == i ? 8.0 : 5.0)
+                                }
+                            }
+                            NavigationLink(
+                                destination: SignUp()
+                                    .statusBar(hidden: true)
+                                    .navigationBarHidden(true),
+                                 
+                                isActive: $isSignUpOpen)
+                            {
+                                 EmptyView()
+                            }
+                            Spacer().frame(height:90)
+                            Button("Get Started") {
+                               isSignUpOpen = true
+                               // self.mode.wrappedValue.dismiss()
+                            }
+                            .frame(maxWidth:.infinity,
+                                   maxHeight: 50)
+                           
+                            .font(.system(size: 22, weight: .bold))
+                            .foregroundColor(.white)
+                            .shadow(radius: 10 )
+                            .background(Color(hex: "0f65ff"))
+                            .cornerRadius(10)
+                           
+                                
+                        }.padding(40)
+                       // .scaledToFit()
+                            
+                        
+                    }.padding(20)
+                    .frame(maxWidth:.infinity,maxHeight: dimension.size.height * 0.45)
 
-                }    .edgesIgnoringSafeArea(.all)
- 
+                    }    .edgesIgnoringSafeArea(.all)
+     
+                }
+              
+
+            }.onAppear{
+               
             }
-          
-
         }
        
     }
