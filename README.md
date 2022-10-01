@@ -1,10 +1,9 @@
-# courseville
+# SwiftBuddy
 
-A new Flutter application.
+An IOS application.
 
 ## About
 
-An ongoing flutter educational application project being developed to offer users video courses, track user progress and generate certifications for users on completion of course
 
 ![alt text](https://firebasestorage.googleapis.com/v0/b/linkup-d48a3.appspot.com/o/uploads%2FSimulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202022-10-01%20at%2023.36.01.png?alt=media&token=a41ae081-91c9-4449-bc44-752e8d4bd705)
 
